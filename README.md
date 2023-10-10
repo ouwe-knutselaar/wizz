@@ -24,8 +24,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	phillipWhizz "github.com/FerdinaKusumah/wizz"
-	responseModel "github.com/FerdinaKusumah/wizz/models"
+	phillipWhizz "github.com/ouwe-knutselaar/wizz"
+	responseModel "github.com/ouwe-knutselaar/wizz/models"
 	"log"
 )
 
