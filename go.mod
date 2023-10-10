@@ -1,3 +1,3 @@
-module github.com/FerdinaKusumah/wizz
+module github.com/ouwe-knutselaar/wizz
 
-go 1.13
+go 1.20

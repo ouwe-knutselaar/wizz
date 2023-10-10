@@ -3,8 +3,8 @@ package example
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/FerdinaKusumah/wizz"
-	"github.com/FerdinaKusumah/wizz/models"
+	"github.com/ouwe-knutselaar/wizz"
+	"github.com/ouwe-knutselaar/wizz/models"
 	"log"
 )
 

@@ -68,6 +68,9 @@ type ResultPayload struct {
 	FwVersion   string  `json:"fwVersion,omitempty"`
 	GroupId     int64   `json:"groupId,omitempty"`
 	DrvConf     []int64 `json:"drvConf,omitempty"`
+	R           int64   `json:"r,omitempty"`
+	G           int64   `json:"g,omitempty"`
+	B           int64   `json:"b,omitempty"`
 }
 
 type RequestPayload struct {

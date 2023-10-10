@@ -1,9 +1,9 @@
 package wizz
 
 import (
-	"github.com/FerdinaKusumah/wizz/connection"
-	"github.com/FerdinaKusumah/wizz/models"
-	"github.com/FerdinaKusumah/wizz/utils"
+	"github.com/ouwe-knutselaar/wizz/connection"
+	"github.com/ouwe-knutselaar/wizz/models"
+	"github.com/ouwe-knutselaar/wizz/utils"
 	"log"
 )
 
