@@ -1,7 +1,7 @@
 # wizz
 Phillips Wizz Local Connection, see main.go for detail example.
 
-Install package ``go get github.com/FerdinaKusumah/wizz``
+Install package ``go get github.com/ouwe-knutselaarh/wizz``
 
 ## Available methods
 1. `getState` get current state bulb

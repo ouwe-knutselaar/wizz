@@ -83,3 +83,13 @@ type ResponsePayload struct {
 	Env    string        `json:"env,omitempty"`
 	Result ResultPayload `json:"result,omitempty"`
 }
+
+type Lamp struct {
+	Name        string
+	R           int64
+	G           int64
+	B           int64
+	Address     string
+	On          bool
+	Description string
+}
