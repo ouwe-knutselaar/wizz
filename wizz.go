@@ -4,44 +4,29 @@ import (
 	"github.com/ouwe-knutselaar/wizz/connection"
 	"github.com/ouwe-knutselaar/wizz/models"
 	"github.com/ouwe-knutselaar/wizz/utils"
-	"log"
 )
 
 func GetState(bulbIp string) (*models.ResponsePayload, error) {
 	var (
-		response = new(models.ResponsePayload)
-		err      error
-		payload  = &models.RequestPayload{
+		payload = &models.RequestPayload{
 			Method: "getPilot",
 		}
 	)
-	if response, err = connection.SendUdpMessage(bulbIp, payload); err != nil {
-		log.Fatalf(`Unable to send message to udp: %s`, err)
-		return nil, err
-	}
-	return response, nil
+	return connection.SendUdpMessage(bulbIp, payload)
 }
 
 func GetConfig(bulbIp string) (*models.ResponsePayload, error) {
 	var (
-		response = new(models.ResponsePayload)
-		err      error
-		payload  = &models.RequestPayload{
+		payload = &models.RequestPayload{
 			Method: "getSystemConfig",
 		}
 	)
-	if response, err = connection.SendUdpMessage(bulbIp, payload); err != nil {
-		log.Fatalf(`Unable to send message to udp: %s`, err)
-		return nil, err
-	}
-	return response, nil
+	return connection.SendUdpMessage(bulbIp, payload)
 }
 
 func TurnOnLight(bulbIp string) (*models.ResponsePayload, error) {
 	var (
-		response = new(models.ResponsePayload)
-		err      error
-		payload  = &models.RequestPayload{
+		payload = &models.RequestPayload{
 			Method: "setPilot",
 			Params: models.ParamPayload{
 				State: true,
@@ -49,18 +34,12 @@ func TurnOnLight(bulbIp string) (*models.ResponsePayload, error) {
 			},
 		}
 	)
-	if response, err = connection.SendUdpMessage(bulbIp, payload); err != nil {
-		log.Fatalf(`Unable to send message to udp: %s`, err)
-		return nil, err
-	}
-	return response, nil
+	return connection.SendUdpMessage(bulbIp, payload)
 }
 
 func TurnOffLight(bulbIp string) (*models.ResponsePayload, error) {
 	var (
-		response = new(models.ResponsePayload)
-		err      error
-		payload  = &models.RequestPayload{
+		payload = &models.RequestPayload{
 			Method: "setPilot",
 			Params: models.ParamPayload{
 				State: false,
@@ -68,18 +47,12 @@ func TurnOffLight(bulbIp string) (*models.ResponsePayload, error) {
 			},
 		}
 	)
-	if response, err = connection.SendUdpMessage(bulbIp, payload); err != nil {
-		log.Fatalf(`Unable to send message to udp: %s`, err)
-		return nil, err
-	}
-	return response, nil
+	return connection.SendUdpMessage(bulbIp, payload)
 }
 
 func SetColorTemp(bulbIp string, value float64) (*models.ResponsePayload, error) {
 	var (
-		response = new(models.ResponsePayload)
-		err      error
-		payload  = &models.RequestPayload{
+		payload = &models.RequestPayload{
 			Method: "setPilot",
 		}
 	)
@@ -97,18 +70,13 @@ func SetColorTemp(bulbIp string, value float64) (*models.ResponsePayload, error)
 		State:     true,
 		Speed:     50, // must between 0 - 100
 	}
-	if response, err = connection.SendUdpMessage(bulbIp, payload); err != nil {
-		log.Fatalf(`Unable to send message to udp: %s`, err)
-		return nil, err
-	}
-	return response, nil
+
+	return connection.SendUdpMessage(bulbIp, payload)
 }
 
 func SetBrightness(bulbIp string, value float64) (*models.ResponsePayload, error) {
 	var (
-		response = new(models.ResponsePayload)
-		err      error
-		payload  = &models.RequestPayload{
+		payload = &models.RequestPayload{
 			Method: "setPilot",
 		}
 	)
@@ -122,31 +90,19 @@ func SetBrightness(bulbIp string, value float64) (*models.ResponsePayload, error
 		State:   true,
 		Speed:   50, // must between 0 - 100
 	}
-	if response, err = connection.SendUdpMessage(bulbIp, payload); err != nil {
-		log.Fatalf(`Unable to send message to udp: %s`, err)
-		return nil, err
-	}
-	return response, nil
+
+	return connection.SendUdpMessage(bulbIp, payload)
 }
 
 func SetColorRGB(bulbIp string, r, g, b float64) (*models.ResponsePayload, error) {
 	var (
-		response = new(models.ResponsePayload)
-		err      error
-		payload  = &models.RequestPayload{
+		payload = &models.RequestPayload{
 			Method: "setPilot",
 		}
 	)
-
-	if r > 255 {
-		r = 255
-	}
-	if g > 255 {
-		g = 255
-	}
-	if b > 255 {
-		b = 255
-	}
+	r = valuecorrection(r)
+	g = valuecorrection(g)
+	b = valuecorrection(b)
 
 	payload.Params = models.ParamPayload{
 		R:     r,
@@ -155,19 +111,14 @@ func SetColorRGB(bulbIp string, r, g, b float64) (*models.ResponsePayload, error
 		State: true,
 		Speed: 50, // must between 0 - 100
 	}
-	if response, err = connection.SendUdpMessage(bulbIp, payload); err != nil {
-		log.Fatalf(`Unable to send message to udp: %s`, err)
-		return nil, err
-	}
-	return response, nil
+
+	return connection.SendUdpMessage(bulbIp, payload)
 }
 
 func SetColorScene(bulbIp string, sceneId int64) (*models.ResponsePayload, error) {
 	var (
-		response = new(models.ResponsePayload)
-		err      error
-		exists   bool
-		payload  = &models.RequestPayload{
+		exists  bool
+		payload = &models.RequestPayload{
 			Method: "setPilot",
 			Params: models.ParamPayload{
 				SceneId: 1,
@@ -179,18 +130,13 @@ func SetColorScene(bulbIp string, sceneId int64) (*models.ResponsePayload, error
 	if _, exists = models.SceneModel[sceneId]; exists == true {
 		payload.Params.SceneId = sceneId
 	}
-	if response, err = connection.SendUdpMessage(bulbIp, payload); err != nil {
-		log.Fatalf(`Unable to send message to udp: %s`, err)
-		return nil, err
-	}
-	return response, nil
+
+	return connection.SendUdpMessage(bulbIp, payload)
 }
 
 func SetColorWarmWhite(bulbIp string, value float64) (*models.ResponsePayload, error) {
 	var (
-		response = new(models.ResponsePayload)
-		err      error
-		payload  = &models.RequestPayload{
+		payload = &models.RequestPayload{
 			Method: "setPilot",
 			Params: models.ParamPayload{
 				WarmWhite: 0,
@@ -199,27 +145,15 @@ func SetColorWarmWhite(bulbIp string, value float64) (*models.ResponsePayload, e
 			},
 		}
 	)
-	if value < 0 {
-		value = 0
-	}
+	value = valuecorrection(value)
 
-	if value > 256 {
-		value = 256
-	}
 	payload.Params.WarmWhite = value
-
-	if response, err = connection.SendUdpMessage(bulbIp, payload); err != nil {
-		log.Fatalf(`Unable to send message to udp: %s`, err)
-		return nil, err
-	}
-	return response, nil
+	return connection.SendUdpMessage(bulbIp, payload)
 }
 
 func SetColorColdWhite(bulbIp string, value float64) (*models.ResponsePayload, error) {
 	var (
-		response = new(models.ResponsePayload)
-		err      error
-		payload  = &models.RequestPayload{
+		payload = &models.RequestPayload{
 			Method: "setPilot",
 			Params: models.ParamPayload{
 				ColdWhite: 0,
@@ -228,18 +162,17 @@ func SetColorColdWhite(bulbIp string, value float64) (*models.ResponsePayload, e
 			},
 		}
 	)
+	value = valuecorrection(value)
+	payload.Params.ColdWhite = value
+	return connection.SendUdpMessage(bulbIp, payload)
+}
+
+func valuecorrection(value float64) float64 {
+	if value > 255 {
+		value = 255
+	}
 	if value < 0 {
 		value = 0
 	}
-
-	if value > 256 {
-		value = 256
-	}
-	payload.Params.ColdWhite = value
-
-	if response, err = connection.SendUdpMessage(bulbIp, payload); err != nil {
-		log.Fatalf(`Unable to send message to udp: %s`, err)
-		return nil, err
-	}
-	return response, nil
+	return value
 }
