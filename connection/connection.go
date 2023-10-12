@@ -47,7 +47,6 @@ func SendUdpMessage(host string, message *models.RequestPayload) (*models.Respon
 	}
 	// read response from bulb
 	conn.SetReadDeadline(time.Now().Add(ReadTimeOut * time.Second))
-
 	if _, err = bufio.NewReader(conn).Read(response); err != nil {
 		return nil, fmt.Errorf(`Unable to read message from UDP: %s`, err)
 	}
