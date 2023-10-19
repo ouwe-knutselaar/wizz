@@ -15,6 +15,7 @@ Install package ``go get github.com/ouwe-knutselaarh/wizz``
 9. `setColorWarmWhite` set color warm light bulb
 10. `setColorColdWhite` set color cold light bulb
 
+
 Reference project from [https://github.com/sbidy/wiz_light](https://github.com/sbidy/wiz_light)
 
 ## Example

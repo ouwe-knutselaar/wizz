@@ -24,7 +24,7 @@ func SendUdpMessage(host string, message *models.RequestPayload) (*models.Respon
 		conn            = new(net.UDPConn)
 		payload         []byte
 	)
-	time.Sleep(time.Second * 1)
+	//time.Sleep(time.Second * 1)
 	// doing connection to UDP
 	if remoteAddr, err = net.ResolveUDPAddr("udp", fmt.Sprintf(`%s:%s`, host, Port)); err != nil {
 		err = errors.New(fmt.Sprintf(`Unable resolve udp: %s`, err))
@@ -34,6 +34,7 @@ func SendUdpMessage(host string, message *models.RequestPayload) (*models.Respon
 		err = errors.New(fmt.Sprintf(`Unable to dial up to udp: %s`, err))
 		return nil, err
 	}
+	conn.SetReadDeadline(time.Now().Add(5 * time.Second))
 	defer conn.Close()
 	// marshall payload to json string
 	if payload, err = json.Marshal(message); err != nil {
