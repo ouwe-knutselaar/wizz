@@ -144,25 +144,6 @@ func SetColorColdWhite(bulbIp string, value float64) (*models.ResponsePayload, e
 	return connection.SendUdpMessage(bulbIp, payload)
 }
 
-func SearchLamp() []string {
-	var temp []string
-
-	localAddr, _ := getSourceAddress()
-
-	var tel byte
-	for tel = 1; tel < 255; tel++ {
-		localAddr[3] = tel
-		addrStr := fmt.Sprintf("%d.%d.%d.%d", localAddr[0], localAddr[1], localAddr[2], localAddr[3])
-		log.Println("Search", addrStr)
-		_, err := GetState(addrStr)
-		if err == nil {
-			temp = append(temp, addrStr)
-			log.Println("Found lamp at", addrStr)
-		}
-	}
-	return temp
-}
-
 func getSourceAddress() ([4]byte, error) {
 	addlist, _ := net.InterfaceAddrs()
 
